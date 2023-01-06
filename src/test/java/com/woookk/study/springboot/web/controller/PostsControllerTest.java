@@ -1,6 +1,7 @@
 package com.woookk.study.springboot.web.controller;
 
 import com.woookk.study.springboot.web.domain.Posts;
+import com.woookk.study.springboot.web.dto.PostsResponseDto;
 import com.woookk.study.springboot.web.dto.posts.PostsSaveRequestDto;
 import com.woookk.study.springboot.web.repository.PostsRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -56,5 +57,33 @@ class PostsControllerTest {
         List<Posts> all = postsRepository.findAll();
         assertThat(all.get(0).getTitle()).isEqualTo(title);
         assertThat(all.get(0).getContent()).isEqualTo(content);
+    }
+    @Test
+    public void Posts_조회하기() throws Exception {
+        //given
+        String title = "title";
+        String content = "content";
+        String author = "author";
+
+        Posts savePosts = postsRepository.save(Posts.builder()
+                .title(title)
+                .content(content)
+                .author(author)
+                .build());
+        Long id = savePosts.getId();
+
+        String url = "http://localhost:" + port + "/posts/{id}";
+
+        //when
+        ResponseEntity<PostsResponseDto> responseEntity = restTemplate.getForEntity(url, PostsResponseDto.class, id);
+
+        //then
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        PostsResponseDto postsResponseDto = responseEntity.getBody();
+        assertThat(postsResponseDto.getId()).isEqualTo(id);
+        assertThat(postsResponseDto.getTitle()).isEqualTo(title);
+        assertThat(postsResponseDto.getContent()).isEqualTo(content);
+        assertThat(postsResponseDto.getAuthor()).isEqualTo(author);
     }
 }
