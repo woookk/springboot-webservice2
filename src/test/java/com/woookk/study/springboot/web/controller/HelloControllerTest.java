@@ -1,5 +1,6 @@
-package com.woookk.study.springboot.web;
+package com.woookk.study.springboot.web.controller;
 
+import com.woookk.study.springboot.web.controller.HelloController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
