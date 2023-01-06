@@ -1,4 +1,4 @@
-package com.woookk.study.springboot.web.dto;
+package com.woookk.study.springboot.web.dto.posts;
 
 import com.woookk.study.springboot.web.domain.Posts;
 import lombok.AllArgsConstructor;
