@@ -14,7 +14,7 @@ public class PostsController {
 
     @PostMapping("/posts")
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
-
+        //To Do: formal validation
         return postsService.save(requestDto);
     }
 
@@ -28,5 +28,11 @@ public class PostsController {
     PostsUpdateRequestDto requestDto) {
 
         return postsService.update(id, requestDto);
+    }
+
+    @DeleteMapping("/posts/{id}")
+    public Long delete(@PathVariable Long id) {
+        postsService.delete(id);
+        return id;
     }
 }
